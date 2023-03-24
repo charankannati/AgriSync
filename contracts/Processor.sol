@@ -4,12 +4,12 @@ pragma solidity >=0.4.22 <0.9.0;
 import './Crop.sol';
 import './Product.sol';
 
-contract Processor {
+abstract contract Processor {
     
     mapping (address => address[]) public processorCrops;
     mapping (address => address[]) public processorProducts;
 
-    constructor() public {}
+    constructor() {}
     
     function processorReceivedPackage(
         address _addr,
