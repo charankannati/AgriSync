@@ -3,7 +3,7 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import './ProductD_C.sol';
 
-contract Customer {
+abstract contract Customer {
     
     mapping(address => address[]) public ProductBatchAtCustomer;
     mapping(address => salestatus) public sale;

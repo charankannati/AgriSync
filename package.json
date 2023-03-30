@@ -1,0 +1,27 @@
+{
+  "name": "farmtrust1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charankannati/FarmTrust1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/charankannati/FarmTrust1/issues"
+  },
+  "homepage": "https://github.com/charankannati/FarmTrust1#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "web3": "^1.9.0"
+  }
+}

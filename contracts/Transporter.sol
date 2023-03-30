@@ -6,7 +6,7 @@ import './Product.sol';
 import './ProductW_D.sol';
 import './ProductD_C.sol';
 
-contract Transporter {
+abstract contract Transporter {
     
     function handlePackage(
         address _addr,
