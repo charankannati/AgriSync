@@ -4,13 +4,13 @@ pragma solidity >=0.4.22 <0.9.0;
 import './ProductW_D.sol';
 import './Product.sol';
 
-contract Wholesaler {
+abstract contract Wholesaler {
     
     mapping(address => address[]) public ProductsAtWholesaler;
     mapping(address => address[]) public ProductWtoD;
     mapping(address => address) public ProductWtoDTxContract;
     
-    constructor() public {}
+    constructor() {}
     
     function productRecievedAtWholesaler(
         address _address

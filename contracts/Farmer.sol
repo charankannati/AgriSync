@@ -3,11 +3,11 @@ pragma solidity >=0.4.22 <0.9.0;
 
 import './Crop.sol';
 
-contract Farmer {
+abstract contract Farmer {
     
     mapping (address => address[]) public farmerCrops;
     
-    constructor() public {}
+    constructor() {}
     
     function createCropPackage(
         bytes32 _description,

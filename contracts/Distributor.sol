@@ -4,7 +4,7 @@ import './ProductW_D.sol';
 import './Product.sol';
 import './ProductD_C.sol';
 
-contract Distributor {
+abstract contract Distributor {
     
     mapping(address => address[]) public ProductsAtDistributor;
     mapping(address => address[]) public ProductDtoC;
