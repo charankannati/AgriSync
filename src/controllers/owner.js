@@ -31,7 +31,7 @@ module.exports = {
     // Get a user profile
     getUser: async (address) => {
         // Call the get user function in the smart contract
-        const user = contract.methods.getUserInfo(address).call()
+        const user = await contract.methods.getUserInfo(address).call()
             .catch(error => {
                 console.error('Error getting user: ', error);
             });
