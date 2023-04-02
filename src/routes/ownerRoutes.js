@@ -5,34 +5,31 @@ const ownerController = require('../controllers/owner');
 
 router.post('/register-user', async (req, res) => {
     try {
-        await ownerController.registerUser(req.body);
-        res.send('User registered successfully');
+        await ownerController.registerUser(req, res);
     }
     catch (error) {
         console.log(error);
-        res.status(500).send("Error registering the user");
+        res.status(500).send("Error calling the owner controller's method to register the user");
     }
 });
 
-router.get('/get-user/:address', async (req, res) => {
+router.get('/get-user', async (req, res) => {
     try {
-        const user = await ownerController.getUser(req.params.address);
-        res.send(user);
+        await ownerController.getUser(req, res);
     }
     catch (error) {
         console.log(error);
-        res.status(500).send("Error getting user details");
+        res.status(500).send("Error calling the owner controller's method to get the user's details");
     }
 });
 
 router.patch('/change-user-role', async (req, res) => {
     try {
-        await ownerController.changeUserRole(req.body.role,req.body.address);
-        res.send("User role changed");
+        await ownerController.changeUserRole(req, res);
     }
     catch (error) {
         console.log(error);
-        res.status(500).send("Error getting user details");
+        res.status(500).send("Error calling the owner controller's method to change the user's role");
     }
 });
 
