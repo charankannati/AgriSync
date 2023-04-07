@@ -103,4 +103,15 @@ contract Crop {
         status = packageStatus(2);
         emit ShippmentUpdate(cropid, transporter, processor, 1, 2);
     }
+
+    function requestPackage(address _transporterAddr, address _processorAddr) public {
+        require(
+            status == packageStatus(0),
+            "Package is still at Farmer."
+        );
+        transporter = _transporterAddr;
+        processor = _processorAddr;
+        emit ShippmentUpdate(cropid, _transporterAddr, _processorAddr, 1, 0);
+    }
+
 }

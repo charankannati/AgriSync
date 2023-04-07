@@ -98,6 +98,12 @@ contract SupplyChain is Farmer, Transporter, Processor, Wholesaler, Distributor,
 
     ///////////////  Processor ///////////////
 
+    function processorRequestedRawMaterial(address _addr, address _transporterAddress) external {
+        require(userInfo[msg.sender].role == roles.processor, "Only Manufacturer can access this function");
+        Crop(_addr).requestPackage(_transporterAddress, msg.sender);
+    }
+
+
     function processorReceivedCrops(address _addr) external {
         require(userInfo[msg.sender].role == roles.processor);
         processorReceivedPackage(_addr, msg.sender);
