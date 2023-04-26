@@ -19,6 +19,7 @@ contract Crop {
     );
 
     address cropid;
+    bool forSale;
     bytes32 description;
     uint quantity;
     address transporter;
@@ -62,6 +63,8 @@ contract Crop {
         return (cropid, description, quantity, farmer, transporter, processor, txnContractAddress);
     }
 
+    
+ 
 
 
     function getCropStatus() public view returns(
@@ -104,14 +107,5 @@ contract Crop {
         emit ShippmentUpdate(cropid, transporter, processor, 1, 2);
     }
 
-    function requestPackage(address _transporterAddr, address _processorAddr) public {
-        require(
-            status == packageStatus(0),
-            "Package is still at Farmer."
-        );
-        transporter = _transporterAddr;
-        processor = _processorAddr;
-        emit ShippmentUpdate(cropid, _transporterAddr, _processorAddr, 1, 0);
-    }
 
 }

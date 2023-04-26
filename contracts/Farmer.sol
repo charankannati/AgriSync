@@ -7,7 +7,6 @@ import './Crop.sol';
 abstract contract Farmer {
     
     mapping (address => address[]) public farmerCrops;
-    mapping (address => bytes32[]) public requests;
     
     constructor() {}
     
@@ -45,11 +44,4 @@ abstract contract Farmer {
         return ret;
     }
 
-    function updateRequests(address _processorAddr, bytes32 _signature) public {
-        requests[_processorAddr].push(_signature);
-    }
-
-    function viewRequests() public returns(address[] memory) {
-        return requests;
-    }
 }

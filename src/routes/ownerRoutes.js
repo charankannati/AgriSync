@@ -13,7 +13,7 @@ router.post('/register-user', async (req, res) => {
     }
 });
 
-router.get('/get-user', async (req, res) => {
+router.get('/get-user/:address', async (req, res) => {
     try {
         await ownerController.getUser(req, res);
     }

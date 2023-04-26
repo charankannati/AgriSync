@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
 import "./App.css";
 
 function App() {
@@ -26,6 +26,8 @@ function App() {
           <Route path="/" exact element={<RegisterUser />} />
           <Route path="/get-user" element={<GetUser />} />
           <Route path="/change-user-role" element={<ChangeUserRole />} />
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </div>
     </Router>
@@ -50,14 +52,26 @@ function RegisterUser() {
     <form onSubmit={handleSubmit}>
       <div>
         <label>
-          Address:
-          <input type="text" name="address" onChange={handleChange} />
+          Name:
+          <input type="text" name="name" onChange={handleChange} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Location:
+          <input type="text" name="location" onChange={handleChange} />
         </label>
       </div>
       <div>
         <label>
           Role:
           <input type="text" name="role" onChange={handleChange} />
+        </label>
+      </div>
+      <div>
+        <label>
+          Address:
+          <input type="text" name="address" onChange={handleChange} />
         </label>
       </div>
       <button type="submit">Register User</button>
@@ -78,7 +92,7 @@ function GetUser() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const response = await axios.get(`http://localhost:3000/owner/get-user/${formData.address}`);
-    setUserData(response.data);
+    setUserData(response.data.details);
   };
   return (
     <div>
@@ -149,6 +163,85 @@ function ChangeUserRole() {
       </form>
       {success && <p>User role changed successfully</p>}
       {error && <p>{error}</p>}
+    </div>
+  );
+}
+
+function SignIn() {
+  const [email,setEmail]=useState('');
+  const [password, setPassword]= useState('');
+  const [error, setError]= useState(null);
+  const navigate=useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Call authentication API to sign in user
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>Sign In</h2>
+      {error && <div className="error">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  );
+}
+
+
+function SignUp() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+    try {
+      // Call authentication API to sign up user
+      navigate('/');
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>Sign Up</h2>
+      {error && <div className="error">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Confirm Password</label>
+          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
   );
 }
