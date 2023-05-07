@@ -23,6 +23,7 @@ const registerUser = async (req, res) => {
         // if([4,5,6].includes(role)){
         //     await contract2.methods.registerUser(name, location, role, address).send({ from: process.env.OWNER_ADDRESS, gas:6721975});
         // }else{
+        console.log()
         await contract.methods.registerUser(name, location, role, address).send({ from: process.env.OWNER_ADDRESS, gas:6721975});
         //}
         res.status(200).json({

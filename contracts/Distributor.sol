@@ -40,4 +40,13 @@ abstract contract Distributor {
         ProductDtoCTxContract[_address] = address(dp);
     }
 
+    function getAllProductAtDistributor() public view returns(address[] memory) {
+        uint len = ProductsAtDistributor[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = ProductsAtDistributor[msg.sender][i];
+        }
+        return ret;
+    }
+
 }

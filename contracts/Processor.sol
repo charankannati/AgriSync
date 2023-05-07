@@ -45,4 +45,22 @@ abstract contract Processor {
         
     }
 
+    function getAllCrops() public view returns(address[] memory) {
+        uint len = processorCrops[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = processorCrops[msg.sender][i];
+        }
+        return ret;
+    }
+
+    function getAllCreatedProducts() public view returns(address[] memory) {
+        uint len = processorProducts[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = processorProducts[msg.sender][i];
+        }
+        return ret;
+    }
+
 }

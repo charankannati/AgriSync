@@ -2,6 +2,8 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
+  /* background-image: url("https://media.istockphoto.com/id/106577335/photo/blue-sky-with-scattered-clouds.jpg?s=612x612&w=0&k=20&c=xqgRAso5WNEoST0ca6TCwUdIhp6CayExkZy_UL2PW0s=");
+  background-size: cover; */
 }
 
 /* Navbar */
@@ -11,11 +13,12 @@ body {
   align-items: center;
   background-color: #333;
   color: white;
-  padding: 10px 20px;
+  padding: 20px 20px 10px 20px;
+  margin: 0;
 }
 
 .logo {
-  font-size: 24px;
+  font-family: 'Lilita One', cursive;  font-size: 24px;
   font-weight: bold;
   text-decoration: none;
   color: white;
@@ -54,9 +57,10 @@ form {
   margin-top: 50px;
 }
 
-div {
-  margin: 10px 0;
-}
+/* div {
+  margin: 0 0 10px 0;
+
+} */
 
 label {
   display: flex;
@@ -111,3 +115,38 @@ button[type="submit"]:hover {
   font-size: 18px;
   font-weight: bold;
 }
+
+
+
+img{
+  width: 400px;
+  height: 350px;
+
+  padding-top: 50px;
+}
+
+p{
+
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: 100 ;
+}
+
+.Row {
+  display: table;
+  width: 100%; /*Optional*/
+  table-layout: fixed; /*Optional*/
+  border-spacing: 10px; /*Optional*/
+}
+.Column {
+  display: table-cell;
+  text-align: center;
+}
+
+#intro{
+  font-family: 'Pacifico', cursive;    
+  background-color: #333;
+  color: aliceblue;
+  padding: 50px;
+  margin: 0;
+}
+

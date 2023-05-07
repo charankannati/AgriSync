@@ -12,13 +12,13 @@ const contract = new web3.eth.Contract(SupplyChain.abi, SupplyChain.networks[577
 const transporterHandlePackage = async (req, res) => {
   try {
     // check if the user has the 'transporter' role
-    const userInfo = await contract.methods.getUserInfo(process.env.TRANSPORTER_ADDRESS).call();
-    if (userInfo.role !== '2') {
-      throw new Error('You do not have the transporter role');
-    }
+    // const userInfo = await contract.methods.getUserInfo(req.para).call();
+    // if (userInfo.role !== '2') {
+    //   throw new Error('You do not have the transporter role');
+    // }
 
     // call the 'handlePackage' function on the contract
-    const result = await contract.methods.transporterHandlePackage(req.body.address, req.body.type, req.body.cid).send({ from: process.env.TRANSPORTER_ADDRESS });
+    const result = await contract.methods.transporterHandlePackage(req.body.address, req.body.Ttype, req.body.cid).send({ from: req.params.account });
 
     // log the transaction hash if successful
     res.status(200).json({Transaction: result});

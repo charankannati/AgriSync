@@ -77,11 +77,51 @@ contract SupplyChain is Farmer, Transporter, Processor, UserData {
         userInfo[_userAddr].role = roles(role);
         userInfo[_userAddr].userAddr = _userAddr;
 
+        if(userInfo[_userAddr].role == roles.farmer){
+            farmers.push(_userAddr);
+        }else if(userInfo[_userAddr].role == roles.transporter){
+            transporters.push(_userAddr);
+        }else if(userInfo[_userAddr].role == roles.processor){
+            processors.push(_userAddr);
+        }else if(userInfo[_userAddr].role == roles.wholesaler){
+            wholesalers.push(_userAddr);
+        }else if(userInfo[_userAddr].role == roles.distributor){
+            distributors.push(_userAddr);
+        }else if(userInfo[_userAddr].role == roles.customer){
+            customers.push(_userAddr);
+        }
+
         emit UserRegister(_userAddr, name);
     }
 
     function changeUserRole(uint256 _role, address _addr) external onlyOwner returns (string memory){
+        if(userInfo[_addr].role == roles.farmer){
+            farmers.push(_addr);
+        }else if(userInfo[_addr].role == roles.transporter){
+            transporters.push(_addr);
+        }else if(userInfo[_addr].role == roles.processor){
+            processors.push(_addr);
+        }else if(userInfo[_addr].role == roles.wholesaler){
+            wholesalers.push(_addr);
+        }else if(userInfo[_addr].role == roles.distributor){
+            distributors.push(_addr);
+        }else if(userInfo[_addr].role == roles.customer){
+            customers.push(_addr);
+        }
         userInfo[_addr].role = roles(_role);
+        if(userInfo[_addr].role == roles.farmer){
+            farmers.push(_addr);
+        }else if(userInfo[_addr].role == roles.transporter){
+            transporters.push(_addr);
+        }else if(userInfo[_addr].role == roles.processor){
+            processors.push(_addr);
+        }else if(userInfo[_addr].role == roles.wholesaler){
+            wholesalers.push(_addr);
+        }else if(userInfo[_addr].role == roles.distributor){
+            distributors.push(_addr);
+        }else if(userInfo[_addr].role == roles.customer){
+            customers.push(_addr);
+        }
         return "Role Updated!";
     }
 
@@ -119,9 +159,6 @@ contract SupplyChain is Farmer, Transporter, Processor, UserData {
     }
 
     ///////////////  Processor ///////////////
-
-
-
     function processorReceivedCrops(address _addr) external {
         require(userInfo[msg.sender].role == roles.processor);
         processorReceivedPackage(_addr, msg.sender);
@@ -132,6 +169,22 @@ contract SupplyChain is Farmer, Transporter, Processor, UserData {
         require(RcvrType != 0);
         processorCreatesProduct(msg.sender,_description,_cropAddr,_quantity,_transporterAddr,_receiverAddr,RcvrType);
         return "Product created!";
+    }
+
+    function processorGetAllCrops() public view returns (address[] memory) {
+        require(userInfo[msg.sender].role == roles.processor);
+        address[] memory crops = getAllCrops();
+        return crops;
+    }
+
+    function getAllFarmers() public view returns (address[] memory){
+        return farmers;
+    }
+
+    function processorGetAllCreatedProducts() public view returns (address[] memory) {
+        require(userInfo[msg.sender].role == roles.processor);
+        address[] memory createdProducts = getAllCreatedProducts();
+        return createdProducts;
     }
 
     //function getSaleCrops() external view returns ()

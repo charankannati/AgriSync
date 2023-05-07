@@ -108,6 +108,10 @@ contract SupplyChain2 is Wholesaler, Distributor, Customer, UserData {
         productRecievedAtWholesaler(_address);
     }
 
+    function getAllProcessors() public view returns (address[] memory){
+        return processors;
+    }
+
     function transferProductW_D(address _address, address transporter, address receiver) external {
         require(userInfo[msg.sender].role == roles.wholesaler && msg.sender == Product(_address).getWDC()[0]);
         transferProductWtoD(_address, transporter, receiver);
@@ -134,6 +138,10 @@ contract SupplyChain2 is Wholesaler, Distributor, Customer, UserData {
         transferProductDtoC(_address, transporter, receiver);
     }
 
+    function getAllWholesalers() public view returns (address[] memory){
+        return wholesalers;
+    }
+
     function getBatchesCountDC() external view returns (uint256 count) {
         require(userInfo[msg.sender].role == roles.distributor);
         return ProductDtoC[msg.sender].length;
@@ -146,6 +154,12 @@ contract SupplyChain2 is Wholesaler, Distributor, Customer, UserData {
 
     function getSubContractDC(address _address) external view returns (address SubContractDP) {
         return ProductDtoCTxContract[_address];
+    }
+
+    function distributerGetAllProducts() public view returns(address[] memory) {
+        require(userInfo[msg.sender].role == roles.distributor);
+        address[] memory products = getAllProductAtDistributor();
+        return products;
     }
 
     ///////////////  Customer  ///////////////
@@ -161,6 +175,10 @@ contract SupplyChain2 is Wholesaler, Distributor, Customer, UserData {
         updateSaleStatus(_address, Status);
     }
 
+    function getAllDistributors() public view returns (address[] memory){
+        return distributors;
+    }
+
     function getSalesInfo(address _address) external view returns (uint256 Status) {
         return salesInfo(_address);
     }
@@ -174,5 +192,4 @@ contract SupplyChain2 is Wholesaler, Distributor, Customer, UserData {
         require(userInfo[msg.sender].role == roles.customer);
         return ProductBatchAtCustomer[msg.sender][index];
     }
-    
 }

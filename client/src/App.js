@@ -1,38 +1,129 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import "./App.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+
+} from "react-router-dom";
+import './styles/App.css';
+import Owner from "./Components/Owner";
+import Farmer from './Components/Farmer';
+import Processor from "./Components/Processor";
+
+
+
 
 function App() {
   return (
-    <Router>
-      <div>
-      <div className="navbar">
-        <Link className="logo" to="/">
-          AgriSync
-        </Link>
-        <div className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/get-user">Get User</Link>
-          <Link to="/change-user-role">Change User Role</Link>
-        </div>
-        <div className="auth-links">
-          <Link to="/sign-in">Sign In</Link>
-          <Link to="/sign-up">Sign Up</Link>
-        </div>
-      </div>
+      <Router>
+            <Routes>
+              <Route path="/" exact element={<Home/>}/>
+              <Route path="/register" element={<RegisterUser />} />
+              <Route path="/get-user" element={<GetUser />} />
+              <Route path="/change-user-role" element={<ChangeUserRole />} />
+              <Route path="/sign-in" element={<SignIn />} />
+              {/* <Route path="/page-a" element={<PageA />} />
+              <Route path="/page-b" element={<PageB />} />
+              <Route path="/page-c" element={<PageC />} />
+              <Route path="/page-d" element={<PageD />} />
+              <Route path="/page-e" element={<PageE />} /> */}
+              <Route path="/farmer/*" element={<Farmer/>} />
+              <Route path="/processor/*" element={<Processor/>} />
+              <Route path="/owner/*" element={<Owner/>} />
 
-        <Routes>
-          <Route path="/" exact element={<RegisterUser />} />
-          <Route path="/get-user" element={<GetUser />} />
-          <Route path="/change-user-role" element={<ChangeUserRole />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-        </Routes>
-      </div>
-    </Router>
+            </Routes>
+      </Router>
   );
 }
+
+
+function Home(){
+  return(
+      <div>
+        <div>
+          <div className="navbar">
+            <Link className="logo" to="/">
+              AgriSync
+            </Link>
+            {/* <div className="nav-links">
+              <Link to="/register">Register</Link>
+              <Link to="/get-user">Get User</Link>
+              <Link to="/change-user-role">Change User Role</Link>
+            </div> */}
+            <div className="auth-links">
+              <Link to="/sign-in">Sign In</Link>
+              <Link to="/sign-up">Sign Up</Link>
+            </div>
+          </div>
+
+          <center id="intro">
+          <h1 margin-top="0px">Welcome to AgriSync</h1>
+          </center>
+
+        </div>
+
+        <div>
+          <div class="Row">
+            {/* <div class="Column">
+              <Link to="/owner"><img src="https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/pexels-pixabay-315788-scaled.jpg"/>
+              </Link>
+              <p>Owner</p>
+            </div> */}
+
+            <div class="Column">
+              <Link to="/farmer"><img src="https://thumbs.dreamstime.com/b/indian-farmer-holding-crop-plant-his-wheat-field-indian-farmer-holding-crop-plant-his-wheat-field-123557695.jpg"/>
+              </Link>
+              <p>farmer</p>
+            </div>
+
+            <div class="Column">
+              <Link to="/processor"><img src="https://cdn.thewire.in/wp-content/uploads/2017/12/28145521/agriculture-copy.jpg"/>
+              </Link>
+              <p>processor</p>
+            </div>
+
+            <div class="Column">
+              <Link to="/Transporter"><img alt="" src="https://5.imimg.com/data5/SELLER/Default/2022/7/EO/NA/JP/114450031/vegetable-truck-transportation-service-500x500.jpg"/>
+              </Link>
+              <p>Transporter</p>
+            </div>
+      
+          </div>
+
+          <div class="Row">
+            
+
+            <div class="Column">
+              <Link to="/Wholesaler"><img src="https://bsmedia.business-standard.com/_media/bs/img/article/2018-01/16/full/1516085884-7318.jpg?im=FeatureCrop,width=826,height=465"/>
+              </Link>
+              <p>Wholesaler</p>
+            </div>
+
+            <div class="Column">
+              <Link to="/Retailer"><img src="https://im.rediff.com/money/2014/sep/19veg4.jpg?w=670&h=900"/>
+              </Link>
+              <p>Retailer</p>
+            </div>
+
+            <div class="Column"> 
+              <Link to="/Customer"><img src="https://c.ndtvimg.com/2022-11/95b65ar_india-inflation-reuters_625x300_10_November_22.jpg?im=FitAndFill,algorithm=dnn,width=650,height=400"/>
+              </Link>
+              <p>Customer</p>
+            </div>
+          </div>
+
+          {/* <div class="Row">
+            
+          </div> */}
+        </div>
+      </div>
+  );
+}
+
+
 
 function RegisterUser() {
   const [formData, setFormData] = useState({});
@@ -202,49 +293,7 @@ function SignIn() {
 }
 
 
-function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      return;
-    }
-    try {
-      // Call authentication API to sign up user
-      navigate('/');
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  return (
-    <div className="container">
-      <h2>Sign Up</h2>
-      {error && <div className="error">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Confirm Password</label>
-          <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
-  );
-}
 
 
 export default App;

@@ -122,6 +122,14 @@ contract Product {
         transporters.push(_transporterAddr);
     }
 
+    function updateWholesaler(address _wholesalerAddr) public {
+        wholesaler = _wholesalerAddr;
+    }
+
+    function updateDistributor(address _distributorAddr) public {
+        distributor = _distributorAddr;
+    }
+
 
     function receivedProduct(
         address _receiverAddr

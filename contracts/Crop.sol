@@ -63,8 +63,13 @@ contract Crop {
         return (cropid, description, quantity, farmer, transporter, processor, txnContractAddress);
     }
 
-    
- 
+    function updateProcessorAddress(address addr) public {
+        processor = addr;
+    }
+
+    function updateTransporterAddress(address addr) public {
+        transporter = addr;
+    }
 
 
     function getCropStatus() public view returns(

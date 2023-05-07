@@ -29,6 +29,11 @@ contract ProductW_D {
         status = packageStatus(0);
     }
 
+    function updateTransporterAddress(address addr) public {
+        transporter = addr;
+    }
+
+
 
     function pickWD(
         address _address,
