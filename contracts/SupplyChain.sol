@@ -95,33 +95,7 @@ contract SupplyChain is Farmer, Transporter, Processor, UserData {
     }
 
     function changeUserRole(uint256 _role, address _addr) external onlyOwner returns (string memory){
-        if(userInfo[_addr].role == roles.farmer){
-            farmers.push(_addr);
-        }else if(userInfo[_addr].role == roles.transporter){
-            transporters.push(_addr);
-        }else if(userInfo[_addr].role == roles.processor){
-            processors.push(_addr);
-        }else if(userInfo[_addr].role == roles.wholesaler){
-            wholesalers.push(_addr);
-        }else if(userInfo[_addr].role == roles.distributor){
-            distributors.push(_addr);
-        }else if(userInfo[_addr].role == roles.customer){
-            customers.push(_addr);
-        }
         userInfo[_addr].role = roles(_role);
-        if(userInfo[_addr].role == roles.farmer){
-            farmers.push(_addr);
-        }else if(userInfo[_addr].role == roles.transporter){
-            transporters.push(_addr);
-        }else if(userInfo[_addr].role == roles.processor){
-            processors.push(_addr);
-        }else if(userInfo[_addr].role == roles.wholesaler){
-            wholesalers.push(_addr);
-        }else if(userInfo[_addr].role == roles.distributor){
-            distributors.push(_addr);
-        }else if(userInfo[_addr].role == roles.customer){
-            customers.push(_addr);
-        }
         return "Role Updated!";
     }
 
@@ -164,10 +138,9 @@ contract SupplyChain is Farmer, Transporter, Processor, UserData {
         processorReceivedPackage(_addr, msg.sender);
     }
 
-    function processorCreatesNewProduct(bytes32 _description,address[] memory _cropAddr,uint256 _quantity,address[] memory _transporterAddr,address _receiverAddr,uint256 RcvrType) external returns (string memory) {
+    function processorCreatesNewProduct(bytes32 _description,address[] memory _cropAddr,uint256 _quantity,address[] memory _transporterAddr) external returns (string memory) {
         require(userInfo[msg.sender].role == roles.processor);
-        require(RcvrType != 0);
-        processorCreatesProduct(msg.sender,_description,_cropAddr,_quantity,_transporterAddr,_receiverAddr,RcvrType);
+        processorCreatesProduct(msg.sender,_description,_cropAddr,_quantity,_transporterAddr);
         return "Product created!";
     }
 

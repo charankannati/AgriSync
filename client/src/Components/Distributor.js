@@ -3,7 +3,6 @@ import { Routes, Route, Link, useLocation} from "react-router-dom";
 import { FaRupeeSign, FaEnvelope, FaChartLine } from 'react-icons/fa';
 import axios from "axios";
 import Web3 from "web3";
-
 //import {Table,Button, Card, Row, Col } from 'react-bootstrap';
 
 import * as FaIcons from "react-icons/fa";
@@ -31,8 +30,6 @@ import {
     Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button
 } from '@material-ui/core';
 
-const web3 = new Web3(window.ethereum);
-
 
 const salesData = [
     { name: 'Jan', sales: 60 },
@@ -53,16 +50,17 @@ const emailData = [
     { name: 'Sat', emails: 89 },
     { name: 'Sun', emails: 70 },
 ];
+const web3 = new Web3(window.ethereum);
 
-function Wholesaler() {
+function Distributor() {
   const[account, setAccount] = useState(0);
     useEffect(() => {
-      async function fetchAccount() {
+        async function fetchAccount() {
         const accounts = await web3.eth.getAccounts();
         setAccount(accounts[0]);
-      }
-    fetchAccount();
-  }, []);
+        }
+        fetchAccount();
+    }, []);
     return (
     <div>
     <div className="navbar">
@@ -72,16 +70,15 @@ function Wholesaler() {
         </Link>
     </div>
         <center id="intro">
-            <h1 margin-top="0px">Welcome to Wholesaler's Page </h1>
+            <h1 margin-top="0px">Welcome to Distributor's Page </h1>
         </center>
         <Routes>
-            <Route path="/" element={<WholesalersPage/>}/>
+            <Route path="/" element={<DistributorsPage/>}/>
             <Route path='/viewresponses' element={<ViewResponses account={account}/>} />
-            <Route path='/processor-products' element={<ProcessorProducts account={account}/>} />
-            <Route path='/processor-products/products' element={<Products account={account}/>} />
-            <Route path='/view-recieved-products' element={<ReceivedProducts account={account}/>} />
-            <Route path='/transfer-product' element={<TransferProduct/>}/>
-            <Route path='/receive-product' element={<ReceiveProduct account={account}/>}/>
+            <Route path='/wholesaler-products' element={<WholesalerProducts account={account}/>} />
+            <Route path='/wholesaler-products/products' element={<Products account = {account}/>} />
+            <Route path='/view-received-products' element={<ReceivedProducts account = {account}/>} />
+            <Route path='/receive-product' element={<ReceiveProduct account = {account}/>}/>
             <Route path='/userprofile' element={<UserProfile/>} />
         </Routes>
     </div>
@@ -89,7 +86,7 @@ function Wholesaler() {
 }
 
 //////////////////////// DashBoard ///////////////////////
-function WholesalersPage() {
+function DistributorsPage() {
     const [totalSales, setTotalSales] = useState(0);
     const [emailSubs, setEmailSubs] = useState(0);
     const [followers, setFollowers] = useState(0);
@@ -113,7 +110,7 @@ function WholesalersPage() {
 
     return (
     <div className="container">
-        <h1>Wholesaler's Dashboard</h1>
+        <h1>Distributor's Dashboard</h1>
         <div className="row">
         <div className="col-md-4">
             <div className="card card-primary">
@@ -204,7 +201,7 @@ function ReceivedProducts(props){
     
         try {
           const response = await axios.get(
-            `http://localhost:3000/wholesaler/view-received-products/${props.account}`
+            `http://localhost:3000/distributor/view-received-products/${props.account}`
           );
     
           console.log(response);
@@ -213,53 +210,52 @@ function ReceivedProducts(props){
           console.log(error);
         }
       }
-    
       fetchData();
     }, []);
 
     return (
-        <div className={classes.root}>
-        <Grid container spacing={2}>
-            {<h1>No Products Received</h1> && products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
-                <Card className={classes.card}>
-                <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {product[1]}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Crops: {product[2].join(" ")}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Quantity: {product[3]}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Transporter Addresses: {product[4].join(" ")}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Distributor Addresses: {product[5]}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Product Status: {product[6]}
-                </Typography>
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Transaction Contract Address: {product[7]}
-                </Typography>
-                </CardContent>
-                </Card>
-            </Grid>
-            ))}
-        </Grid>
+      <div className={classes.root}>
+      <Grid container spacing={2}>
+          {<h1>No Products Received</h1> && products.map((product) => (
+          <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <Card className={classes.card}>
+              <CardContent className={classes.cardContent}>
+              <Typography gutterBottom variant="h5" component="h2">
+                {product[1]}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Crops: {product[2].join(" ")}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Quantity: {product[3]}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Transporter Addresses: {product[4].join(" ")}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Distributor Addresses: {product[5]}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Product Status: {product[6]}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Transaction Contract Address: {product[7]}
+              </Typography>
+              </CardContent>
+              </Card>
+          </Grid>
+          ))}
+      </Grid>
 
-        </div>
-    );
+      </div>
+  );
 }
 /////////////////////////View Responses ////////////////////////////
 function ViewResponses(props) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [responses, setResponses] = useState([]);
-  
+
   useEffect(() => {
     async function fetchData() {
   
@@ -279,7 +275,7 @@ function ViewResponses(props) {
     fetchData();
   }, []);
 
-    const handleVerifySignature = async (response) => {
+  const handleVerifySignature = async (response) => {
     try {
       const requestBody = {
         seller: response.seller,
@@ -291,11 +287,12 @@ function ViewResponses(props) {
         requestBody
       );
       setShowSuccess(true);
+
     } catch (error) {
+      setShowError(true)
       console.error(error);
     }
   };
-
   const handleClose = () => {
     setShowSuccess(false);
     setShowError(false);
@@ -303,23 +300,23 @@ function ViewResponses(props) {
   
     return (
       <div className="table-container">
-    <h2 className="table-header">Responses</h2>
+    <h2 className="table-header">Requests</h2>
     <div className="table-wrapper">
     <TableContainer component={Paper}>
   <Table>
     <TableHead>
       <TableRow>
         <TableCell>Buyer</TableCell>
-        <TableCell>Seller</TableCell>
+        <TableCell>seller</TableCell>
         <TableCell>Package Address</TableCell>
-        <TableCell>Signature</TableCell>
-        <TableCell>timestamp</TableCell>
+        <TableCell>Siganture</TableCell>
+        <TableCell>Timestamp</TableCell>
         <TableCell>Verify Signature</TableCell>
       </TableRow>
     </TableHead>
     <TableBody>
     {responses.length === 0 ? (<tr><td colSpan="6">No responses</td></tr>) : (responses.map((response) => (
-        <TableRow >
+        <TableRow>
           <TableCell>{response.returnValues.buyer}</TableCell>
           <TableCell>{response.returnValues.seller}</TableCell>
           <TableCell>{response.returnValues.packageAddr}</TableCell>
@@ -341,26 +338,26 @@ function ViewResponses(props) {
 </TableContainer>
     </div>
     {showSuccess && (
-      <Alert
-        message="Seller Verified successfully!"
-        type="success"
-        duration={5000}
-        onClose={handleClose}
-      />
-    )}
+        <Alert
+          message="Seller Verified successfully!"
+          type="success"
+          duration={5000}
+          onClose={handleClose}
+        />
+      )}
 
-    {showError && (
-      <Alert
-        message="Seller Verification failed!"
-        type="error"
-        duration={5000}
-        onClose={handleClose}
-      />
-    )}
+      {showError && (
+        <Alert
+          message="Seller Verification failed!"
+          type="error"
+          duration={5000}
+          onClose={handleClose}
+        />
+      )}
   </div>
     );
   }
-  ///////////////////////// Processor Products///////////////////////////
+  ///////////////////////// Wholesaler Products///////////////////////////
   const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -384,50 +381,48 @@ function ViewResponses(props) {
         marginRight: theme.spacing(2),
       }
   }));
-  function ProcessorProducts(props) {
+  function WholesalerProducts(props) {
     const classes = useStyles();
-    const [processors, setProcessors] = useState([]);
+    const [wholesalers, setWholesalers] = useState([]);
 
     useEffect(() => {
-      const fetchProcessors = async () => {
+      const fetchWholesalers = async () => {
       try {
-          const response = await axios.get(`http://localhost:3000/wholesaler/get-all-processors/${props.account}`);
-          console.log(response.data)
-          setProcessors(response.data.processorDetails);
-          console.log(processors)
+          const response = await axios.get(`http://localhost:3000/distributor/get-all-wholesalers/${props.account}`);
+          setWholesalers(response.data.wholesalerDetails);
       } catch (error) {
           console.log(error);
       }
       };
-      fetchProcessors();
-    }, []);
+      fetchWholesalers();
+  }, []);
 
 
 
     return (
         <div className={classes.root}>
       <Grid container spacing={2}>
-        {<h1>No Processors in your area</h1> && processors.map((processor) => (
-          <Grid item xs={12} sm={6} md={4} >
+        {wholesalers.map((wholesaler) => (
+          <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-                <img className={classes.profileImage} src='http://localhost:3006/farmer.jpeg' alt={processor.name} />
+              <CardContent className={classes.cardContent}>
+                <img className={classes.profileImage} src='http://localhost:3006/farmer.jpeg' alt="Wholesaler" />
                 <div>
-                  <Typography variant="h5" component="h2">
-                    {processor.processorAddr}
+                <Typography variant="h5" component="h2">
+                    {wholesaler.wholesalerAddr}
                   </Typography>
                   <Typography variant="body2" component="p">
-                    Number of crops: {processor.numberOfProducts}
+                    Number of crops: {wholesaler.productCount}
                   </Typography>
                 </div>
               </CardContent>
               <CardActions>
               <Link
-                  to={'/wholesaler/processor-products/products'}
+                  to={'/processor/wholesaler-products/products'}
                   className="btn btn-primary"
-                  state={{ processor:processor}}
+                  state={{ wholesaler:wholesaler}}
                 >
-                  Show Products
+                  Show Crops
                 </Link>
               </CardActions>
             </Card>
@@ -458,7 +453,7 @@ const useStylesForProducts = makeStyles({
 });
 function Products(props){
   const location = useLocation();
-  const {processor} = location.state;
+  const {wholesaler} = location.state;
   const classes = useStylesForProducts();
   const [openDialog, setOpenDialog] = useState(false);
 const [signature, setSignature] = useState('');
@@ -472,7 +467,7 @@ useEffect(() => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/processor/view-products/${processor.processorAddr}`
+        `http://localhost:3000/wholesaler/view-products/${wholesaler.processorAddr}`
       );
 
       console.log(response);
@@ -503,7 +498,7 @@ const handleConfirmDialog = async () => {
       signature: signature
     }
     console.log(requestBody)
-    await axios.put(`http://localhost:3000/wholesaler/request-package/${props.account}`, 
+    await axios.put(`http://localhost:3000/distributor/request-package/${props.account}`, 
       requestBody
     );
     setShowSuccess(true);
@@ -594,68 +589,12 @@ return (
   </div>
 );
 }
+
 /////////////////////////Receive Product/////////////////////
 function ReceiveProduct(props){
-    const [formData, setFormData] = useState({});
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [showError, setShowError] = useState(false);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.post(`http://localhost:3000/wholesaler/receive-products/${props.account}`, formData);
-      setShowSuccess(true)
-    } catch (error) {
-      setShowError(true);
-    }
-  };
-
-  const handleClose = () => {
-    setShowSuccess(false);
-    setShowError(false);
-  };
-
-  return (
-    <div>
-      <h2>Receive Package</h2>
-      <form onSubmit={handleSubmit}>
-        
-        <label>
-          Package Address:
-          <input type="text" name="address" onChange={handleChange} />
-        </label>
-        
-        <button type="submit">Receive</button>
-      </form>
-      {showSuccess && (
-        <Alert
-          message="Received Package successfully!"
-          type="success"
-          duration={5000}
-          onClose={handleClose}
-        />
-      )}
-
-      {showError && (
-        <Alert
-          message="Receiving package failed!"
-          type="error"
-          duration={5000}
-          onClose={handleClose}
-        />
-      )}
-    </div>
-  );
-}
-
-/////////////////////////Transfer Product////////////////////////
-function TransferProduct(){const [formData, setFormData] = useState({});
-const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({});
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
 
 const handleChange = (event) => {
   const { name, value } = event.target;
@@ -665,39 +604,50 @@ const handleChange = (event) => {
 const handleSubmit = async (event) => {
   event.preventDefault();
   try {
-    const response = await axios.post("http://localhost:3000/handle-package-package", formData);
-    setMessage(response.data.message);
+    await axios.post(`http://localhost:3000/distributor/receive-products/${props.account}`, formData);
+    setShowSuccess(true)
   } catch (error) {
-    setMessage(error.response.data.error);
+    setShowError(true);
   }
+};
+
+const handleClose = () => {
+  setShowSuccess(false);
+  setShowError(false);
 };
 
 return (
   <div>
-    <h2>Transfer Product</h2>
+    <h2>Receive Package</h2>
     <form onSubmit={handleSubmit}>
+      
       <label>
         Package Address:
-        <input type="text" name="packageAddress" onChange={handleChange} />
+        <input type="text" name="address" onChange={handleChange} />
       </label>
-
-      <label>
-        Transporter Address:
-        <input type="text" name="transporterAddress" onChange={handleChange} />
-      </label>
-
-      <label>
-        Distributor Address:
-        <input type="text" name="distributorAddress" onChange={handleChange} />
-      </label>
-
-      <button type="submit">Submit</button>
+      
+      <button type="submit">Receive</button>
     </form>
-    {message && <p>{message}</p>}
+    {showSuccess && (
+      <Alert
+        message="Seller Verified successfully!"
+        type="success"
+        duration={5000}
+        onClose={handleClose}
+      />
+    )}
+
+    {showError && (
+      <Alert
+        message="Seller Verification failed!"
+        type="error"
+        duration={5000}
+        onClose={handleClose}
+      />
+    )}
   </div>
 );
 }
-
 //////////////////////// UserProfile /////////////////////
 function UserProfile(){
     const user = {
@@ -747,8 +697,8 @@ function Navbar() {
             <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
             <div className="navbar">
-                    <Link className="logo" to="/wholesaler">
-                    Wholesaler
+                    <Link className="logo" to="/distributor">
+                    Distributor
                     </Link>
                     
                 </div>
@@ -777,43 +727,43 @@ const SidebarData = [
     
     // {
     // title: "Create Crops",
-    // path: "/wholesaler/createcrops",
+    // path: "/distributor/createcrops",
     // icon: <AiIcons.AiFillHome />,
     // cName: "nav-text",
     // },
+    // {
+    // title: "View Recieved Products",
+    // path: "/distributor/viewproducts",
+    // icon: <IoIcons.IoIosPaper />,
+    // cName: "nav-text",
+    // },
     {
-    title: "View Recieved Products",
-    path: "/wholesaler/view-recieved-products",
-    icon: <IoIcons.IoIosPaper />,
-    cName: "nav-text",
-    },
-    {
-    title: "Processor Products",
-    path: "/wholesaler/processor-products",
+    title: "Wholesaler Products",
+    path: "/distributor/wholesaler-products",
     icon: <FaIcons.FaCartPlus />,
     cName: "nav-text",
     },
     {
     title: "Recieve Products",
-    path: "/wholesaler/receive-product",
+    path: "/distributor/receive-product",
     icon: <IoIcons.IoMdPeople />,
     cName: "nav-text",
     },
     {
     title: "View Responses",
-    path: "/wholesaler/viewresponses",
+    path: "/distributor/viewresponses",
     icon: <FaIcons.FaEnvelopeOpenText />,
     cName: "nav-text",
     },
     {
-        title: "Transfer Product",
-        path: "/wholesaler/transfer-product",
-        icon: <FaIcons.FaEnvelopeOpenText />,
+        title: "View Recieved Products",
+        path: "/distributor/view-received-products",
+        icon: <IoIcons.IoIosPaper />,
         cName: "nav-text",
     },
     {
     title: "User Profile",
-    path: "/wholesaler/userprofile",
+    path: "/distributor/userprofile",
     icon: <IoIcons.IoMdHelpCircle />,
     cName: "nav-text",
     },
@@ -821,4 +771,4 @@ const SidebarData = [
 
 
 
-export default Wholesaler;
+export default Distributor;

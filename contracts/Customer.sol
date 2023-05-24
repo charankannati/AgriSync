@@ -49,4 +49,13 @@ abstract contract Customer {
         return uint(sale[_address]);
     }
 
+    function getAllProductsAtCustomer() public view returns(address[] memory) {
+        uint len = ProductBatchAtCustomer[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = ProductBatchAtCustomer[msg.sender][i];
+        }
+        return ret;
+    }
+
 }

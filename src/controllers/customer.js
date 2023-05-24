@@ -9,8 +9,7 @@ const web3 = new Web3('http://localhost:7545'); // Replace with your Ethereum no
 
 const supplyChainContract = new web3.eth.Contract(SupplyChain2.abi, SupplyChain2.networks[5777].address);
 
-
-exports.distributerReceivedProducts = async (req, res) => {
+exports.cutomerReceivedProducts = async (req, res) => {
     async function verifySignature(sellerAddress, signature) {
         let v = '0x' + signature.slice(130, 132).toString();
         let r = signature.slice(0, 66).toString();
@@ -32,21 +31,21 @@ exports.distributerReceivedProducts = async (req, res) => {
         });
 
         console.log(events);
-        let wholesaler = data[8];
+        let distributor = data[8];
         let signature = events[events.length-1]['returnValues'][3];
-        let verificationOutput = await verifySignature(wholesaler, signature);
+        let verificationOutput = await verifySignature(distributor, signature);
         if(verificationOutput) {
         alert('Signature verified');
-        let subcontractAddress = await supplyChainContract.methods.getSubContractWD(address).call({ from: account });
-        await supplyChainContract.methods.productRecievedAtDistributor(req.body.address, subcontractAddress,SupplyChain.networks[5777].address).send({from: req.params.account})
+        let subcontractAddress = await supplyChainContract.methods.getSubContractDC(req.body.address).call({ from: req.params.account });
+        await supplyChainContract.methods.customerReceivedProduct(req.body.address, subcontractAddress).send({from: req.params.account})
             .once('receipt', async (receipt) => {
             let txnContractAddress = data[6];
             let transporterAddress = data[4];
             let txnHash = receipt.transactionHash;
             const transactions = new web3.eth.Contract(Transactions.abi, txnContractAddress);
-            let txns = await transactions.methods.getAllTransactions().call({from: account});
+            let txns = await transactions.methods.getAllTransactions().call({from: req.params.account});
             let prevTxn = txns[txns.length - 1][0];
-            txn = await transactions.methods.createTxnEntry(txnHash, transporterAddress, account, prevTxn, '10', '10').send({from: req.params.account});
+            txn = await transactions.methods.createTxnEntry(txnHash, transporterAddress, req.params.account, prevTxn, '10', '10').send({from: req.params.account});
             });
         }
         res.status(200).json({
@@ -64,13 +63,11 @@ exports.requestPackage = async (req,res) => {
     const message = web3.utils.soliditySha3(packageId);
     const signature = web3.eth.accounts.sign(message, privateKey);
     try {
-        supplyChainContract.methods.requestProduct(req.params.account, req.body.wholesaler, req.body.packageAddress, req.body.signature).send({ from: req.params.account })
+        supplyChainContract.methods.requestProduct(req.params.account, req.body.distributor, req.body.packageAddress, req.body.signature).send({ from: req.params.account })
         .once('receipt', async (receipt) => {
-            console.log('Request Made to wholesaler!');
+            alert('Request Made to Distributor!');
             console.log(receipt);
-        })
-        res.status(200).json({
-            message:"Request made successfully"
+            isLoading(false);
         })
     } catch (error) {
         console.error(error);
@@ -80,7 +77,7 @@ exports.requestPackage = async (req,res) => {
 
 exports.viewRecievedProducts = async (req, res) => {
     try {
-        var productAddress = await supplyChainContract.methods.distributerGetAllProducts(SupplyChain.networks[5777].address).call({
+        var productAddress = await supplyChainContract.methods.getBatchIdC(SupplyChain.networks[5777].address).call({
             from: req.params.acccont
         });
         res.status(200).json({
@@ -91,44 +88,5 @@ exports.viewRecievedProducts = async (req, res) => {
         res.status(500).json({
             error: 'Error getting product addresses'
         });
-    }
-}
-
-exports.viewProduct = async (req, res) => {
-    try {
-    let product = new web3.eth.Contract(Product.abi, req.body.productAddress);
-    let data = await product.methods.getProductInfo().call({ from: req.params.account });
-    res.status(200).json({
-        data
-    });
-    } catch (error) {
-    console.error(error);
-    res.status(500).json({
-        error: 'Error getting Product'
-    });
-    }
-}
-
-exports.sendPackage = async (req,res) => {
-    // Create signature for package request using distibuter private key
-    //const message = web3.utils.soliditySha3(req.body.packageId);
-    //const signature = web3.eth.accounts.sign(message, req.body.privateKey);
-    let product = new web3.eth.Contract(Product.abi, req.body.productAddress);
-    try {
-    
-    await supplyChainContract.methods.sendPackageToEntity(req.body.distributer, req.params.account, req.body.productAddress, req.body.signature).send({ from: req.params.account })
-        .once('receipt', async (receipt) => {
-        let data = await product.methods.getProductInfo().call({ from: req.params.account });
-        let txnContractAddress = data[ 7 ];
-        let transporterAddress = data[ 4 ][ data[ 4 ].length - 1 ];
-        let txnHash = receipt.transactionHash;
-        const transactions = new web3.eth.Contract(Transactions.abi, txnContractAddress);
-        let txns = await transactions.methods.getAllTransactions().call({ from: req.params.account });
-        let prevTxn = txns[ txns.length - 1 ][ 0 ];
-        transactions.methods.createTxnEntry(txnHash, req.params.account, transporterAddress, prevTxn, '10', '10').send({ from: req.params.account });
-        });
-    } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, message: 'Failed to Send Product' });
     }
 }

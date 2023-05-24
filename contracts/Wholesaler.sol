@@ -13,12 +13,13 @@ abstract contract Wholesaler {
     constructor() {}
     
     function productRecievedAtWholesaler(
-        address _address
+        address _address,
+        address _wholesalerAddress
     ) public {
 
-        uint rtype = Product(_address).receivedProduct(msg.sender);
+        uint rtype = Product(_address).receivedProduct(_wholesalerAddress);
         if(rtype == 1){
-            ProductsAtWholesaler[msg.sender].push(_address);
+            ProductsAtWholesaler[_wholesalerAddress].push(_address);
         }
     }
     
@@ -36,5 +37,14 @@ abstract contract Wholesaler {
         );
         ProductWtoD[msg.sender].push(address(wd));
         ProductWtoDTxContract[_address] = address(wd);
+    }
+
+    function getAllProductsAtWholesaler() public view returns(address[] memory) {
+        uint len = ProductsAtWholesaler[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = ProductsAtWholesaler[msg.sender][i];
+        }
+        return ret;
     }
 }

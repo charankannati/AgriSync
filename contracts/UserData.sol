@@ -20,4 +20,32 @@ contract UserData {
     }
 
     mapping(address => userData) public userInfo;
+
+    function getUser(address _addr) public view returns (userData memory) {
+        return userInfo[_addr];
+    }
+
+    function getallFarmers() public view returns (address[] memory) {
+        return farmers;
+    }
+
+    function getallTransporters() public view returns (address[] memory) {
+        return transporters;
+    }
+
+    function getallProcessors() public view returns (address[] memory) {
+        return processors;
+    }
+
+    function getallWholesalers() public view returns (address[] memory) {
+        return wholesalers;
+    }
+
+    function getallDistributors() public view returns (address[] memory) {
+        return distributors;
+    }
+
+    function getallCustomers() public view returns (address[] memory) {
+        return customers;
+    }
 }

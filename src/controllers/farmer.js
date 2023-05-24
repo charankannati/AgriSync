@@ -19,7 +19,7 @@ const createCropPackage = async (req, res) => {
         const quantity = req.body.quantity;
         const transporterAddr = req.body.transporterAddr;
         const processorAddr = req.body.processorAddr;
-        console.log(req.params.account);
+        console.log(req.body.transporterAddr);
         await supplyChainContract.methods.farmerCreatesCropPackage(description, quantity, transporterAddr, processorAddr).send({
             from: req.params.account, gas:30000000
         }).once('receipt', async (receipt) => {

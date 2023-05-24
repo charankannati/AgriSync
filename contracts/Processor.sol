@@ -26,9 +26,7 @@ abstract contract Processor {
         bytes32 _description,
         address[] memory _cropsAddr,
         uint _quantity,
-        address[] memory _transporterAddr,
-        address _recieverAddr,
-        uint RcvrType
+        address[] memory _transporterAddr
         ) public {
             
         Product _product = new Product(
@@ -36,9 +34,7 @@ abstract contract Processor {
             _description,
             _cropsAddr,
             _quantity,
-            _transporterAddr,
-            _recieverAddr,
-            RcvrType
+            _transporterAddr
         );
         
         processorProducts[_processorAddr].push(address(_product));

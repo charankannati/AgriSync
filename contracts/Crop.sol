@@ -58,9 +58,10 @@ contract Crop {
         address,
         address,
         address,
-        address
+        address,
+        packageStatus
     ) {
-        return (cropid, description, quantity, farmer, transporter, processor, txnContractAddress);
+        return (cropid, description, quantity, farmer, transporter, processor, txnContractAddress, status);
     }
 
     function updateProcessorAddress(address addr) public {

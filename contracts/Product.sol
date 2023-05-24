@@ -42,9 +42,7 @@ contract Product {
         bytes32 _description,
         address[] memory _cropsAddr,
         uint _quantity,
-        address[] memory _transporterAddr,
-        address _receiverAddr,
-        uint RcvrType
+        address[] memory _transporterAddr
     ) public {
         Owner = _processorAddr;
         processor = _processorAddr;
@@ -52,11 +50,8 @@ contract Product {
         crops = _cropsAddr;
         quantity = _quantity;
         transporters = _transporterAddr;
-        if(RcvrType == 1) {
-            wholesaler = _receiverAddr;
-        } else if( RcvrType == 2){
-            distributor = _receiverAddr;
-        }
+        wholesaler = address(0x0);
+        distributor = address(0x0);
         Transactions txnContract = new Transactions(_processorAddr);
         txnContractAddress = address(txnContract);
     }
@@ -69,7 +64,9 @@ contract Product {
         uint _quantity,
         address[] memory _transporterAddr,
         address _distributor,
-        address _customer
+        uint _status,
+        address _txnContract,
+        address _wholesaler
     ) {
         return(
             processor,
@@ -78,7 +75,9 @@ contract Product {
             quantity,
             transporters,
             distributor,
-            customer
+            uint(status),
+            txnContractAddress,
+            wholesaler
         );
     }
 
@@ -122,14 +121,13 @@ contract Product {
         transporters.push(_transporterAddr);
     }
 
-    function updateWholesaler(address _wholesalerAddr) public {
-        wholesaler = _wholesalerAddr;
+    function updateWholesalerAddress(address addr) public {
+        wholesaler = addr;
     }
 
-    function updateDistributor(address _distributorAddr) public {
-        distributor = _distributorAddr;
+    function updateDistributorAddress(address addr) public {
+        distributor = addr;
     }
-
 
     function receivedProduct(
         address _receiverAddr

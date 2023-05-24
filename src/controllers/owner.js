@@ -16,7 +16,7 @@ const registerUser = async (req, res) => {
         // Create a new user object
         const user = req.body;
         const name = web3.utils.padRight(web3.utils.fromAscii(user.name), 64);
-        const location = user.location;
+        const location = user.location.split();
         const role = Number(user.role);
         const address = user.address;
         // Call the create user function in the smart contract
