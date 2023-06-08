@@ -136,7 +136,7 @@ All pull requests will be reviewed by the project maintainers. Constructive feed
 
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/charankannati"><img src="https://avatars.githubusercontent.com/u/charankannati?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Charan Kannati</b></sub></a><br /><a href="" title="">:new_moon_with_face:</a></td>
+    <td align="center"><a href="https://github.com/charankannati"><img src="https://avatars.githubusercontent.com/u/124780754?s=16&v=4" width="100px;" alt=""/><br /><sub><b>Charan Kannati</b></sub></a><br /><a href="" title="">:new_moon_with_face:</a></td>
     <td align="center"><a href="https://github.com/calden"><img src="https://avatars.githubusercontent.com/u/46684660?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Darlene Nazareth</b></sub></a><br /><a href="" title="">:snowflake:</a></td>
     <td align="center"><a href="https://github.com/affan"><img src="https://avatars.githubusercontent.com/u/54650944?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Cassia Vaz</b></sub></a><br /><a href="" title="">:sparkles:</a></td></td>
   </tr>
