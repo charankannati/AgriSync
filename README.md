@@ -101,7 +101,7 @@ cd <project_directory>
 
 ## Usage
 
-![Step 1](./images/1.png)
+![Step 1](images/1.png)
 
 ![Step 2](./images/2.png)
 
