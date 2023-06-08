@@ -107,7 +107,7 @@ cd <project_directory>
 
 ![Step 3](./images/AgriSync - Slides.pptx_page-0025.jpg)
 
-![Step 4](./images/AgriSync - Slides.pptx_page-0026.jpg)
+![Step 4](./images/"AgriSync - Slides.pptx_page-0026.jpg")
 
 ![Step 5](./images/AgriSync - Slides.pptx_page-0027.jpg)
 
@@ -133,6 +133,14 @@ All pull requests will be reviewed by the project maintainers. Constructive feed
 ## Contact
 
 [Connect on LinkedIn](https://www.linkedin.com/in/charan-kannati)
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/charankannati"><img src="https://avatars.githubusercontent.com/u/43489167?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Sherwyn D'souza</b></sub></a><br /><a href="" title="">:new_moon_with_face:</a></td>
+    <td align="center"><a href="https://github.com/calden"><img src="https://avatars.githubusercontent.com/u/46684660?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Darlene Nazareth</b></sub></a><br /><a href="" title="">:snowflake:</a></td>
+    <td align="center"><a href="https://github.com/affan"><img src="https://avatars.githubusercontent.com/u/54650944?v=3?s=100" width="100px;" alt=""/><br /><sub><b>Cassia Vaz</b></sub></a><br /><a href="" title="">:sparkles:</a></td></td>
+  </tr>
+ </table>
 
 ## Acknowledgments
 
