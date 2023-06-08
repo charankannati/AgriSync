@@ -144,7 +144,7 @@ All pull requests will be reviewed by the project maintainers. Constructive feed
 
 We would like to express our gratitude to the following resources, libraries, and individuals who have inspired or assisted us throughout the development of this project:
 
-- Dr.Chayadevi ML: We would like to extend our appreciation to John Doe for their insightful feedback and suggestions during the project review and testing phase.
+- Dr.Chayadevi ML: We would like to extend our appreciation to her for their insightful feedback and suggestions during the project review and testing phase.
 
 - Open-source community: We are thankful to the vibrant open-source community for creating and maintaining numerous tools and frameworks that significantly facilitated our development process.
 
