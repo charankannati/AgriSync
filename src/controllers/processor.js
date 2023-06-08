@@ -65,7 +65,7 @@ exports.processorCreatesNewProduct = async (req, res) => {
     let txn=0;
     var d = web3.utils.padRight(web3.utils.fromAscii(req.body.description), 64);
     console.log(req.body.crops)
-    await supplyChainContract.methods.processorCreatesNewProduct(d, req.body.crops.split(), req.body.quantity, req.body.transporters.split()).send({ from: req.params.account, gas:300000000 })
+    await supplyChainContract.methods.processorCreatesNewProduct(d, req.body.crops.split(), req.body.quantity, req.body.transporters.split(), req.body.wholesaler, req.body.distributor).send({ from: req.params.account, gas:300000000 })
     .once('receipt', async (receipt) => {
       console.log(receipt);
       var productAddresses = await supplyChainContract.methods.getAllCreatedProducts().call({ from: req.params.account });
@@ -250,7 +250,9 @@ exports.sendPackage = async (req,res) => {
       .once('receipt', async (receipt) => {
         console.log(receipt);
         let data = await product.methods.getProductInfo().call({ from: req.params.account });
-        await product.methods.updateTransporterArray(req.body.transporterAddress).send({ from: req.params.account , gas:3000000000});
+        if(req.body.transporterAddress){
+          await product.methods.updateTransporterArray(req.body.transporterAddress).send({ from: req.params.account , gas:3000000000});
+        }
         let txnContractAddress = data[ 7 ];
         let transporterAddress = data[ 4 ][ data[ 4 ].length - 1 ];
         let txnHash = receipt.transactionHash;

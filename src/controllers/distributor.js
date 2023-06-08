@@ -10,6 +10,12 @@ const web3 = new Web3('http://localhost:7545'); // Replace with your Ethereum no
 const supplyChainContract = new web3.eth.Contract(SupplyChain2.abi, SupplyChain2.networks[5777].address);
 
 
+const db = require('../../config/database');
+const Wholesaler = require('../models/Wholesaler');
+
+
+db();
+
 exports.distributerReceivedProducts = async (req, res) => {
     async function verifySignature(sellerAddress, signature) {
         let v = '0x' + signature.slice(130, 132).toString();
@@ -61,16 +67,20 @@ exports.distributerReceivedProducts = async (req, res) => {
 
 exports.requestPackage = async (req,res) => {
     // Create signature for package request using distributer private key
-    const message = web3.utils.soliditySha3(packageId);
-    const signature = web3.eth.accounts.sign(message, privateKey);
+    // const message = web3.utils.soliditySha3(packageId);
+    // const signature = web3.eth.accounts.sign(message, privateKey);
     try {
-        supplyChainContract.methods.requestProduct(req.params.account, req.body.wholesaler, req.body.packageAddress, req.body.signature).send({ from: req.params.account })
-        .once('receipt', async (receipt) => {
-            console.log('Request Made to wholesaler!');
-            console.log(receipt);
-        })
+        // supplyChainContract.methods.requestProduct(req.params.account, req.body.wholesaler, req.body.packageAddress, req.body.signature).send({ from: req.params.account })
+        // .once('receipt', async (receipt) => {
+        //     console.log('Request Made to wholesaler!');
+        //     console.log(receipt);
+        // })
+        // res.status(200).json({
+        //     message:"Request made successfully"
+        // })
+        await supplyChainContract.methods.requestProduct(req.params.account, req.body.processor, req.body.packageId, req.body.signature).send({ from: req.params.account });
         res.status(200).json({
-            message:"Request made successfully"
+            message:"Request Made Successfully"
         })
     } catch (error) {
         console.error(error);
@@ -83,6 +93,29 @@ exports.viewRecievedProducts = async (req, res) => {
         var productAddress = await supplyChainContract.methods.distributerGetAllProducts(SupplyChain.networks[5777].address).call({
             from: req.params.acccont
         });
+        const wholesaler = await Wholesaler.find({
+            wholesaler: req.params.account
+        });
+        if (wholesaler.length > 0) {
+            //console.log(wholesaler[0].products);
+            productAddresses = wholesaler[0].products;
+        }
+        console.log(productAddresses);
+
+        const productDetails = [];
+  
+        for (let i = 0; i < productAddresses.length; i++) {
+            const productAddress = productAddresses[i];
+            //console.log(productAddress);
+            const productContract = new web3.eth.Contract(Product.abi, productAddress);
+            var product = await productContract.methods.getProductInfo().call({
+                from: req.params.account
+            });
+            product._productAddr = productAddress;
+            productDetails.push(product);
+        }
+        //console.log(productDetails)
+        productDetails[0]._productAddress
         res.status(200).json({
             productAddress
         });
@@ -132,3 +165,41 @@ exports.sendPackage = async (req,res) => {
     res.status(500).json({ success: false, message: 'Failed to Send Product' });
     }
 }
+
+exports.getAllWholesalers = async (req, res) => {
+    try {
+        
+      var wholesalers = await supplyChainContract.methods.getAllWholesalers(SupplyChain.networks[5777].address).call({
+          from: req.params.account
+      });
+      console.log(wholesalers)
+  
+    const wholesalerDetails = [];
+  
+    for (let i = 0; i < wholesalers.length; i++) {
+        const wholesaler = wholesalers[i];
+        console.log(wholesaler);
+        const details = await Wholesaler.find({
+            wholesaler: wholesaler
+        });
+        let products = 0;
+        if (wholesaler.length > 0) {
+            //console.log(wholesaler[0].products);
+            products = details[0].products;
+        }
+        console.log(products);
+        wholesalerDetails.push({wholesalerAddr:wholesaler, productCount:products.length});
+    }
+
+    
+    
+    res.status(200).json({
+        wholesalerDetails
+    });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+          error: 'Error getting Wholesalers'
+      });
+    }
+  }

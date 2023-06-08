@@ -406,23 +406,23 @@ function ViewResponses(props) {
           <Grid item xs={12} sm={6} md={4}>
             <Card className={classes.card}>
               <CardContent className={classes.cardContent}>
-                <img className={classes.profileImage} src='http://localhost:3006/farmer.jpeg' alt="Wholesaler" />
+                <img className={classes.profileImage} src={`http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`} alt="Wholesaler" />
                 <div>
                 <Typography variant="h5" component="h2">
                     {wholesaler.wholesalerAddr}
                   </Typography>
                   <Typography variant="body2" component="p">
-                    Number of crops: {wholesaler.productCount}
+                    Number of products: {wholesaler.productCount}
                   </Typography>
                 </div>
               </CardContent>
               <CardActions>
               <Link
-                  to={'/processor/wholesaler-products/products'}
+                  to={'/distributor/wholesaler-products/products'}
                   className="btn btn-primary"
                   state={{ wholesaler:wholesaler}}
                 >
-                  Show Crops
+                  Show Products
                 </Link>
               </CardActions>
             </Card>
@@ -467,11 +467,11 @@ useEffect(() => {
 
     try {
       const response = await axios.get(
-        `http://localhost:3000/wholesaler/view-products/${wholesaler.processorAddr}`
+        `http://localhost:3000/wholesaler/view-received-products/${props.account}`
       );
 
       console.log(response);
-      setProducts(response.data.products);
+      setProducts(response.data.productDetails);
     } catch (error) {
       console.log(error);
     }
@@ -517,24 +517,36 @@ const handleClose = () => {
 return (
   <div className={classes.root}>
     <Grid container spacing={2}>
-      {<h1>No Products</h1> && products.map((product) => (
-        <Grid item xs={12} sm={6} md={4} >
-          <Card className={classes.card}>
-            <CardContent className={classes.cardContent}>
-              <Typography gutterBottom variant="h5" component="h2">
-              {Web3.utils.hexToUtf8(product._description).trim()}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Product Id: {product._productAddress}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Crops Used: {product._cropsAddr}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Processor Address: {product._processorAddr}
-              </Typography>
-            </CardContent>
-            <CardActions>
+    { products.length===0 ? <h1>No Products Received</h1> : products.map((product) => (
+            <Grid item xs={12} sm={6} md={4} >
+                <Card className={classes.card}>
+                <CardContent className={classes.cardContent}>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {product._productAddr}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Crops: {product._cropsAddr.join(" ")}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Quantity: {product._quantity}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Transporter Addresses: {product._transporterAddr.join(" ")}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Wholesaler Address: {product._wholesaler}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Distributor Addresses: {product._distributor}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Product Status: {product._status}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Transaction Contract Address: {product._txnContract}
+                </Typography>
+                </CardContent>
+                <CardActions>
               <Button
                 size="small"
                 color="primary"
@@ -544,9 +556,9 @@ return (
                 Request Package
               </Button>
             </CardActions>
-          </Card>
-        </Grid>
-      ))}
+                </Card>
+            </Grid>
+            ))}
     </Grid>
     <Dialog open={openDialog} onClose={handleCloseDialog}>
       <DialogTitle>Request Package Signature</DialogTitle>
@@ -651,11 +663,11 @@ return (
 //////////////////////// UserProfile /////////////////////
 function UserProfile(){
     const user = {
-    name: 'John Doe',
-    email: 'johndoe@example.com',
+    name: 'Harish',
+    email: 'harish@agrisync.com',
     location: "234, Kalinga patnam, 234567",
     address: "0x4a9180B3FDAa6c9Ab058A32B2D116ab03185F4e0",
-    profilePicUrl: 'http://localhost:3006/farmer.jpeg'
+    profilePicUrl: `http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`
     };
 
     return (
@@ -669,8 +681,8 @@ function UserProfile(){
         </div>
         <div className="UserProfile-body">
             <p>Email: {user.email}</p>
-            <p>Location: {user.email}</p>
-            <p>Address: {user.email}</p>
+            <p>Location: {user.location}</p>
+            <p>Address: {user.address}</p>
         </div>
         </div>
     </div>

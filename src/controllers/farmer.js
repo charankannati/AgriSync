@@ -21,7 +21,7 @@ const createCropPackage = async (req, res) => {
         const processorAddr = req.body.processorAddr;
         console.log(req.body.transporterAddr);
         await supplyChainContract.methods.farmerCreatesCropPackage(description, quantity, transporterAddr, processorAddr).send({
-            from: req.params.account, gas:30000000
+            from: req.params.account, gas:3000000
         }).once('receipt', async (receipt) => {
             var cropAddresses = await supplyChainContract.methods.getAllPackages().call({from: req.params.account});
             let cropAddress = cropAddresses[cropAddresses.length - 1];

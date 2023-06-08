@@ -392,7 +392,7 @@ function DistributorProducts(props) {
     useEffect(() => {
     const fetchDistributors = async () => {
     try {
-        const response = await axios.get(`http://localhost:3000/retailer/get-all-distributors/${props.account}`);
+        const response = await axios.get(`http://localhost:3000/customer/get-all-distributors/${props.account}`);
         console.log(response.data)
         setDistributors(response.data.distributorDetails);
         console.log(distributors)
@@ -412,13 +412,13 @@ function DistributorProducts(props) {
         <Grid item xs={12} sm={6} md={4} >
             <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
-                <img className={classes.profileImage} src='http://localhost:3006/farmer.jpeg' alt={distributor.name} />
+                <img className={classes.profileImage} src={`http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`} alt={distributor.name} />
                 <div>
                 <Typography variant="h5" component="h2">
                     {distributor.distributorAddr}
                 </Typography>
                 <Typography variant="body2" component="p">
-                    Number of Products: {distributor.productNum}
+                    Number of Products: {distributor.productCount}
                 </Typography>
                 </div>
             </CardContent>
@@ -661,7 +661,7 @@ function UserProfile(){
     email: 'johndoe@example.com',
     location: "234, Kalinga patnam, 234567",
     address: "0x4a9180B3FDAa6c9Ab058A32B2D116ab03185F4e0",
-    profilePicUrl: 'http://localhost:3006/farmer.jpeg'
+    profilePicUrl: `http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`
     };
 
     return (

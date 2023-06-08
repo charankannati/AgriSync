@@ -12,7 +12,7 @@ import './styles/App.css';
 import Owner from "./Components/Owner";
 import Farmer from './Components/Farmer';
 import Processor from "./Components/processor";
-import Transporter from "./Components/Transporter";
+import Transporter from "./Components/transporter";
 import Wholesaler from "./Components/Wholesaler";
 import Distributor from "./Components/Distributor";
 import Retailer from "./Components/Retailer";
@@ -99,13 +99,13 @@ function Home(){
             <div class="Column">
               <Link to="/farmer"><img src="https://thumbs.dreamstime.com/b/indian-farmer-holding-crop-plant-his-wheat-field-indian-farmer-holding-crop-plant-his-wheat-field-123557695.jpg"/>
               </Link>
-              <p>farmer</p>
+              <p>Farmer</p>
             </div>
 
             <div class="Column">
-              <Link to="/processor"><img src="https://cdn.thewire.in/wp-content/uploads/2017/12/28145521/agriculture-copy.jpg"/>
+              <Link to="/processor"><img src="http://localhost:3006/processor.jpg"/>
               </Link>
-              <p>processor</p>
+              <p>Processor</p>
             </div>
 
             <div class="Column">

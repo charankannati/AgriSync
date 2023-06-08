@@ -226,10 +226,18 @@ function ProcessorPage() {
           Transporter Address:
           <input type="text" name="transporters" onChange={handleChange} />
         </label>
+        <label>
+          Wholesaler Address:
+          <input type="text" name="wholesaler" onChange={handleChange} />
+        </label>
+        <label>
+          Distributor Address:
+          <input type="text" name="distributor" onChange={handleChange} />
+        </label>
         <button type="submit">Create</button>
         {showSuccess && (
         <Alert
-          message="Crop Created successfully!"
+          message="Product Created successfully!"
           type="success"
           duration={5000}
           onClose={handleClose}
@@ -238,7 +246,7 @@ function ProcessorPage() {
 
       {showError && (
         <Alert
-          message="Crop Creation failed!"
+          message="Product Creation failed!"
           type="error"
           duration={5000}
           onClose={handleClose}
@@ -754,7 +762,7 @@ function FarmerCrops(props) {
           <Grid item xs={12} sm={6} md={4} key={farmer.id}>
             <Card className={classes.card}>
               <CardContent className={classes.cardContent}>
-                <img className={classes.profileImage} src='http://localhost:3006/farmer.jpeg' alt={farmer.name} />
+                <img className={classes.profileImage} src={`http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`} alt={farmer.name} />
                 <div>
                   <Typography variant="h5" component="h2">
                     {farmer.farmerAddr}
@@ -953,7 +961,7 @@ return (
       email: 'mark@example.com',
       location: "215, Machilipatnam , 234367",
       address: "0x4a9180B3FDAa6coaudbf908b4f116ab03185F4e0",
-      profilePicUrl: 'http://localhost:3006/farmer.jpeg'
+      profilePicUrl: `http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`
     };
   
     return (

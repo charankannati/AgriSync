@@ -239,7 +239,7 @@ function UserProfile(){
     email: 'johndoe@example.com',
     location: "234, Kalinga patnam, 234567",
     address: "0x4a9180B3FDAa6c9Ab058A32B2D116ab03185F4e0",
-    profilePicUrl: 'http://localhost:3006/farmer.jpeg'
+    profilePicUrl: `http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`
   };
 
   return (

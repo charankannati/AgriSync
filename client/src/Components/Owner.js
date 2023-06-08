@@ -80,23 +80,23 @@ function OwnerPage(){
     {
       id: 1,
       date: "2022-05-05",
-      product: "iPhone 13",
-      quantity: 5,
-      price: "$5,000"
+      product: "Tomatoes",
+      quantity: 10000,
+      price: "Rs. 5,00,000"
     },
     {
       id: 2,
       date: "2022-05-04",
-      product: "MacBook Pro",
-      quantity: 2,
-      price: "$8,000"
+      product: "Lady's Finger",
+      quantity: 190290,
+      price: "Rs. 7,00,070"
     },
     {
       id: 3,
       date: "2022-05-03",
-      product: "iPad Air",
-      quantity: 10,
-      price: "$3,000"
+      product: "Aata",
+      quantity: 20000,
+      price: "Rs. 50,05,000"
     }
   ]);
   

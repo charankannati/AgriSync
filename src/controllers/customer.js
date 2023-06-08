@@ -3,7 +3,8 @@ const SupplyChain2 = require('../../build/contracts/SupplyChain2.json')
 const SupplyChain = require('../../build/contracts/SupplyChain.json')
 const Product = require('../../build/contracts/Product.json')
 //const Crop = require('../../build/contracts/Crop.json')
-const Transactions = require('../../build/contracts/Transactions.json')
+const Transactions = require('../../build/contracts/Transactions.json');
+//const { default: Distributor } = require('../../client/src/Components/Distributor');
 
 const web3 = new Web3('http://localhost:7545'); // Replace with your Ethereum node URL
 
@@ -90,3 +91,42 @@ exports.viewRecievedProducts = async (req, res) => {
         });
     }
 }
+
+
+exports.getAllDistributors = async (req, res) => {
+    try {
+        
+      var distributors = await supplyChainContract.methods.getAllDistributors(SupplyChain.networks[5777].address).call({
+          from: req.params.account
+      });
+      console.log(distributors)
+  
+    const distributorDetails = [];
+  
+    for (let i = 0; i < distributors.length; i++) {
+        const distributor = distributors[i];
+        console.log(distributor);
+        // const details = await Distributor.find({
+        //     distributor: distributor
+        // });
+        //let products = 0;
+        // if (distributor.length > 0) {
+        //     //console.log(distributor[0].products);
+        //     products = details[0].products;
+        // }
+        //console.log(products);
+        distributorDetails.push({distributorAddr:distributor, productCount: Math.floor(Math.random() * 10)});
+    }
+
+    
+    
+    res.status(200).json({
+        distributorDetails
+    });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+          error: 'Error getting Distributors'
+      });
+    }
+  }

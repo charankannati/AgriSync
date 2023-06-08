@@ -126,7 +126,7 @@ function WholesalersPage() {
         <div className="col-md-4">
             <div className="card card-info">
             <div className="card-body">
-                <h5 className="card-title"><FaEnvelope /> Email Subscriptions</h5>
+                <h1 className="card-title"><FaEnvelope /> Email Subscriptions</h1>
                 <p className="card-text">2365</p>
             </div>
             </div>
@@ -198,6 +198,7 @@ const useStylesForRProducts = makeStyles({
 function ReceivedProducts(props){
     const classes = useStylesForRProducts();
     const [products, setProducts] = useState([]);
+    //let products = [];
 
     useEffect(() => {
       async function fetchData() {
@@ -207,8 +208,9 @@ function ReceivedProducts(props){
             `http://localhost:3000/wholesaler/view-received-products/${props.account}`
           );
     
-          console.log(response);
-          setProducts(response.data);
+          console.log(response.data.productDetails);
+          setProducts(response.data.productDetails);
+          console.log(products)
         } catch (error) {
           console.log(error);
         }
@@ -217,33 +219,48 @@ function ReceivedProducts(props){
       fetchData();
     }, []);
 
+    // useEffect(() => {
+    //   async function fetchData() {
+    //     const response = await axios.get(
+    //       `http://localhost:3000/wholesaler/view-received-products/${props.account}`
+    //     );
+    //     //setProducts(response.data.productDetails);
+    //     products.push(response.data.productDetails);
+    //     console.log(products.length);
+    //   }
+    //   fetchData();
+    // }, []);
+
     return (
         <div className={classes.root}>
         <Grid container spacing={2}>
-            {<h1>No Products Received</h1> && products.map((product) => (
-            <Grid item xs={12} sm={6} md={4} key={product.id}>
+            { products.length===0 ? <h1>No Products Received</h1> : products.map((product) => (
+            <Grid item xs={12} sm={6} md={4} >
                 <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
                 <Typography gutterBottom variant="h5" component="h2">
-                  {product[1]}
+                  {product._productAddr}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Crops: {product[2].join(" ")}
+                  Crops: {product._cropsAddr.join(" ")}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Quantity: {product[3]}
+                  Quantity: {product._quantity}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Transporter Addresses: {product[4].join(" ")}
+                  Transporter Addresses: {product._transporterAddr.join(" ")}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Distributor Addresses: {product[5]}
+                  Wholesaler Address: {product._wholesaler}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Product Status: {product[6]}
+                  Distributor Addresses: {product._distributor}
                 </Typography>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  Transaction Contract Address: {product[7]}
+                  Product Status: {product._status}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Transaction Contract Address: {product._txnContract}
                 </Typography>
                 </CardContent>
                 </Card>
@@ -411,7 +428,7 @@ function ViewResponses(props) {
           <Grid item xs={12} sm={6} md={4} >
             <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
-                <img className={classes.profileImage} src='http://localhost:3006/farmer.jpeg' alt={processor.name} />
+                <img className={classes.profileImage} src={`http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`} alt={processor.name} />
                 <div>
                   <Typography variant="h5" component="h2">
                     {processor.processorAddr}
@@ -705,7 +722,7 @@ function UserProfile(){
     email: 'johndoe@example.com',
     location: "234, Kalinga patnam, 234567",
     address: "0x4a9180B3FDAa6c9Ab058A32B2D116ab03185F4e0",
-    profilePicUrl: 'http://localhost:3006/farmer.jpeg'
+    profilePicUrl: `http://localhost:3006/${Math.floor(Math.random() * (14 - 1)) + 1}.jpeg`
     };
 
     return (

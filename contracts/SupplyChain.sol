@@ -138,9 +138,9 @@ contract SupplyChain is Farmer, Transporter, Processor, UserData {
         processorReceivedPackage(_addr, msg.sender);
     }
 
-    function processorCreatesNewProduct(bytes32 _description,address[] memory _cropAddr,uint256 _quantity,address[] memory _transporterAddr) external returns (string memory) {
+    function processorCreatesNewProduct(bytes32 _description,address[] memory _cropAddr,uint256 _quantity,address[] memory _transporterAddr, address _wholesalerAddr, address _distributorAddr) external returns (string memory) {
         require(userInfo[msg.sender].role == roles.processor);
-        processorCreatesProduct(msg.sender,_description,_cropAddr,_quantity,_transporterAddr);
+        processorCreatesProduct(msg.sender,_description,_cropAddr,_quantity,_transporterAddr, _wholesalerAddr,_distributorAddr);
         return "Product created!";
     }
 

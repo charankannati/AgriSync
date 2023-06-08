@@ -15,10 +15,10 @@ abstract contract Transporter {
         ) public {
 
         if(transportertype == 1) { 
-            /// Supplier -> Manufacturer
+            /// Farmer -> Processor
             Crop(_addr).pickPackage(msg.sender);
         } else if(transportertype == 2) { 
-            /// Manufacturer -> Wholesaler
+            /// Processor -> Wholesaler
             Product(_addr).pickProduct(msg.sender);
         } else if(transportertype == 3) {   
             // Wholesaler to Distributer
