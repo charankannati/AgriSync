@@ -101,21 +101,21 @@ cd <project_directory>
 
 ## Usage
 
-![Step 1](./images/AgriSync - Slides.pptx_page-0023.jpg)
+![Step 1](./images/1.png)
 
-![Step 2](./images/AgriSync - Slides.pptx_page-0024.jpg)
+![Step 2](./images/2.png)
 
-![Step 3](./images/AgriSync - Slides.pptx_page-0025.jpg)
+![Step 3](./images/3.png)
 
-![Step 4](./images/"AgriSync - Slides.pptx_page-0026.jpg")
+![Step 4](./images/4.png)
 
-![Step 5](./images/AgriSync - Slides.pptx_page-0027.jpg)
+![Step 5](./images/5.png)
 
-![Step 6](./images/AgriSync - Slides.pptx_page-0028.jpg)
+![Step 6](./images/6.png)
 
-![Step 7](./images/AgriSync - Slides.pptx_page-0029.jpg)
+![Step 7](./images/7.png)
 
-![Step 8](./images/AgriSync - Slides.pptx_page-0030.jpg)
+![Step 8](./images/8.png)
 
 ## Contributing
 
