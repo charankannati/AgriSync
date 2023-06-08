@@ -1,0 +1,352 @@
+/* Global styles */
+@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-react-navigations/styles/material.css";
+
+body {
+  font-family:Verdana,  Tahoma, sans-serif;
+  margin: 0;
+}
+
+nav {
+  background-color: #333;
+  color: #1d035e;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+
+
+.Column p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin:20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+input {
+  display: block;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 100%;
+  margin-left: 10px;
+}
+
+button[type="submit"] {
+  background-color: #2c6ce3;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 30px;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  color: red;
+}
+
+
+button:hover {
+  background-color: #555;
+}
+
+.user-info {
+  border: 1px solid #ccc;
+  margin: 20px;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  margin: 20px;
+}
+
+/* Sign-in and sign-up links */
+
+.sign-in,
+.sign-up {
+  background-color: #fff;
+  border: 1px solid #333;
+  border-radius: 3px;
+  color: #333;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  text-decoration: none;
+}
+
+.sign-in:hover,
+.sign-up:hover {
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+}
+
+.sign-up {
+  background-color: #333;
+  color: #fff;
+}
+/* Owner DashBoard */
+
+
+
+
+/* Center the cards both horizontally and vertically */
+.crop-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Media query to adapt the grid in smaller screens */
+@media (max-width: 600px) {
+  .crop-card {
+    width: 100%;
+  }
+}
+
+.crop-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.crop-card strong {
+  font-weight: bold;
+}
+
+.crop-card .mt-4 {
+  margin-top: 1rem;
+}
+
+.crop-card .d-flex {
+  display: flex;
+}
+
+.crop-card .justify-content-between {
+  justify-content: space-between;
+}
+
+.crop-card .btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.crop-card .btn-primary:hover {
+  background-color: #0069d9;
+}
+
+.crop-card .btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.crop-card button {
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.crop-card button:hover {
+  opacity: 0.8;
+}
+
+.crop-card button:active {
+  transform: translateY(1px);
+}
+
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0062cc;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  border-color: #545b62;
+}
+
+
+/* Requests Table */
+
+
+  
+.table-container {
+  max-width: 1000px;
+  margin: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #d0e7e5;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  margin-bottom: 5%;
+}
+
+.table-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.table-header {
+  margin-top: 20px;
+}
+
+.table-wrapper {
+  display: flex;
+  width:800px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  height: 100%;
+}
+
+.request-table {
+  margin-bottom: 0;
+}
+
+.request-table thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.request-table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.request-table tbody tr:hover {
+  background-color: #e2e2e2;
+}
+
+.request-table td,
+.request-table th {
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.request-table td button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.request-table td button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/*USer Profile*/
+
+.UserProfile {
+  display: flex;
+  position: relative;
+  background-color: #f1f1f1;
+  padding: 20px;
+  width: auto;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.UserProfile-image-container {
+  position: sticky;
+  top: 20px;
+  width: 250px;
+  margin-right: 20px;
+}
+
+.UserProfile-image-container img {
+  width: 100%;
+}
+
+.UserProfile-details-container {
+  
+  flex: 1;
+}
+
+.UserProfile-header {
+  border-radius: 20px;
+  background-color: #0077ff;
+  color: #fff;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.UserProfile-body {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  padding: 20px;
+}

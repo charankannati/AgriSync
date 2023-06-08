@@ -19,6 +19,7 @@ contract Crop {
     );
 
     address cropid;
+    bool forSale;
     bytes32 description;
     uint quantity;
     address transporter;
@@ -57,11 +58,19 @@ contract Crop {
         address,
         address,
         address,
-        address
+        address,
+        packageStatus
     ) {
-        return (cropid, description, quantity, farmer, transporter, processor, txnContractAddress);
+        return (cropid, description, quantity, farmer, transporter, processor, txnContractAddress, status);
     }
 
+    function updateProcessorAddress(address addr) public {
+        processor = addr;
+    }
+
+    function updateTransporterAddress(address addr) public {
+        transporter = addr;
+    }
 
 
     function getCropStatus() public view returns(
@@ -103,4 +112,6 @@ contract Crop {
         status = packageStatus(2);
         emit ShippmentUpdate(cropid, transporter, processor, 1, 2);
     }
+
+
 }

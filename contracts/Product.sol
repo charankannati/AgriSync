@@ -43,8 +43,8 @@ contract Product {
         address[] memory _cropsAddr,
         uint _quantity,
         address[] memory _transporterAddr,
-        address _receiverAddr,
-        uint RcvrType
+        address _wholesaler,
+        address _distributor
     ) public {
         Owner = _processorAddr;
         processor = _processorAddr;
@@ -52,11 +52,8 @@ contract Product {
         crops = _cropsAddr;
         quantity = _quantity;
         transporters = _transporterAddr;
-        if(RcvrType == 1) {
-            wholesaler = _receiverAddr;
-        } else if( RcvrType == 2){
-            distributor = _receiverAddr;
-        }
+        wholesaler = _wholesaler;
+        distributor = _distributor;
         Transactions txnContract = new Transactions(_processorAddr);
         txnContractAddress = address(txnContract);
     }
@@ -69,7 +66,9 @@ contract Product {
         uint _quantity,
         address[] memory _transporterAddr,
         address _distributor,
-        address _customer
+        uint _status,
+        address _txnContract,
+        address _wholesaler
     ) {
         return(
             processor,
@@ -78,7 +77,9 @@ contract Product {
             quantity,
             transporters,
             distributor,
-            customer
+            uint(status),
+            txnContractAddress,
+            wholesaler
         );
     }
 
@@ -109,19 +110,26 @@ contract Product {
             "Package must be at processor."
         );
 
-        if(wholesaler != address(0x0)){
-            status = productStatus(1);
-            emit ShippmentUpdate(address(this), _transporterAddr, wholesaler, 1, 1);
-        }else{
-            status = productStatus(2);
-            emit ShippmentUpdate(address(this), _transporterAddr, distributor, 1, 2);
-        }
+        // if(wholesaler != address(0x0)){
+        status = productStatus(1);
+        emit ShippmentUpdate(address(this), _transporterAddr, wholesaler, 1, 1);
+        // }else{
+        //     status = productStatus(2);
+        //     emit ShippmentUpdate(address(this), _transporterAddr, distributor, 1, 2);
+        // }
     }
     
     function updateTransporterArray(address _transporterAddr) public {
         transporters.push(_transporterAddr);
     }
 
+    function updateWholesalerAddress(address addr) public {
+        wholesaler = addr;
+    }
+
+    function updateDistributorAddress(address addr) public {
+        distributor = addr;
+    }
 
     function receivedProduct(
         address _receiverAddr
@@ -139,15 +147,15 @@ contract Product {
             "Product not picked up yet"
         );
 
-        if(_receiverAddr == wholesaler && status == productStatus(1)){
-            status = productStatus(3);
-            emit ShippmentUpdate(address(this), transporters[transporters.length - 1], wholesaler, 2, 3);
-            return 1;
-        } else if(_receiverAddr == distributor && status == productStatus(2)){
-            status = productStatus(4);
-            emit ShippmentUpdate(address(this), transporters[transporters.length - 1], distributor,3, 4);
-            return 2;
-        }
+        // if(_receiverAddr == wholesaler && status == productStatus(1)){
+        status = productStatus(3);
+        emit ShippmentUpdate(address(this), transporters[transporters.length - 1], wholesaler, 2, 3);
+        return 1;
+        // } else if(_receiverAddr == distributor && status == productStatus(2)){
+        //     status = productStatus(4);
+        //     emit ShippmentUpdate(address(this), transporters[transporters.length - 1], distributor,3, 4);
+        //     return 2;
+        // }
     }
 
 

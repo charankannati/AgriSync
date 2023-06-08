@@ -2,3 +2,5 @@
 truffle.config.js
 package.lock.json
 \node_modules
+client\package.lock.json
+client\node_modules

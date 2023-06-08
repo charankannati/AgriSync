@@ -27,8 +27,8 @@ abstract contract Processor {
         address[] memory _cropsAddr,
         uint _quantity,
         address[] memory _transporterAddr,
-        address _recieverAddr,
-        uint RcvrType
+        address _wholesalerAddr,
+        address _distributorAddr
         ) public {
             
         Product _product = new Product(
@@ -37,12 +37,30 @@ abstract contract Processor {
             _cropsAddr,
             _quantity,
             _transporterAddr,
-            _recieverAddr,
-            RcvrType
+            _wholesalerAddr,
+            _distributorAddr
         );
         
         processorProducts[_processorAddr].push(address(_product));
         
     }
-    
+
+    function getAllCrops() public view returns(address[] memory) {
+        uint len = processorCrops[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = processorCrops[msg.sender][i];
+        }
+        return ret;
+    }
+
+    function getAllCreatedProducts() public view returns(address[] memory) {
+        uint len = processorProducts[msg.sender].length;
+        address[] memory ret = new address[](len);
+        for (uint i = 0; i < len; i++) {
+            ret[i] = processorProducts[msg.sender][i];
+        }
+        return ret;
+    }
+
 }
