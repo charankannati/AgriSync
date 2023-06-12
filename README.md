@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a decentralized application (DApp) that combines a React frontend, a Node.js backend, and smart contracts written in Solidity. It aims to provide a decentralized solution for [describe the purpose or problem your project solves].
+This project is a decentralized application (DApp) that combines a React frontend, a Node.js backend, and smart contracts written in Solidity. It aims to provide a decentralized solution for Application of Blockchain-based supply chain management in Agriculture.
 
 ## Project Structure
 
